@@ -9,3 +9,9 @@ func NewChannel() *Channel {
 		channel: make(chan Event),
 	}
 }
+
+func (c Channel) SendEvent(event Event) {
+	go func() {
+		c.channel <- event
+	}()
+}

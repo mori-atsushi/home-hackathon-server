@@ -28,6 +28,8 @@ func (s *AppService) Event(srv pb.AppService_EventServer) error {
 			log.Printf("close: %v", user)
 			break
 		}
+		event := model.NewEvent(resp.GetEvent().GetMessage())
+		s.room.SendEvent(user, event)
 		log.Printf("recieve: %v", resp)
 	}
 	return nil

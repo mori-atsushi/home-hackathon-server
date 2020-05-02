@@ -28,3 +28,11 @@ func (r Room) RemoveChannel(user User) {
 	delete(r.channels, user.id)
 	r.mutex.Unlock()
 }
+
+func (r Room) SendEvent(user User, event Event) {
+	r.mutex.Lock()
+	for _, channel := range r.channels {
+		channel.SendEvent(event)
+	}
+	r.mutex.Unlock()
+}
