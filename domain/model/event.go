@@ -1,15 +1,19 @@
 package model
 
+import (
+	"github.com/Mori-Atsushi/home-hackathon-server/pb"
+)
+
 type Event struct {
-	message string
+	raw *pb.Event
 }
 
-func NewEvent(message string) Event {
+func NewEvent(raw *pb.Event) Event {
 	return Event{
-		message: message,
+		raw: raw,
 	}
 }
 
-func (e Event) GetMessage() string {
-	return e.message
+func (e Event) GetRaw() *pb.Event {
+	return e.raw
 }
