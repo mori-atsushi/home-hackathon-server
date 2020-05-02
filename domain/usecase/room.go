@@ -53,6 +53,9 @@ func receiveEvent(room *model.Room, user model.User, srv pb.AppService_EventServ
 		}
 		resp := pb.EventResponse{Event: event.GetRaw()}
 		log.Printf("send: %v, %v", user, resp)
-		srv.Send(&resp)
+		error := srv.Send(&resp)
+		if error != nil {
+			break
+		}
 	}
 }
