@@ -36,3 +36,10 @@ func (r Room) SendEvent(user User, event Event) {
 	}
 	r.mutex.Unlock()
 }
+
+func (r Room) ReceiveEvent(user User) <-chan Event {
+	r.mutex.Lock()
+	channel := r.channels[user.id]
+	r.mutex.Unlock()
+	return channel.channel
+}

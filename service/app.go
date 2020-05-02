@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"log"
+	"sync"
 
 	"github.com/Mori-Atsushi/home-hackathon-server/domain/model"
 	"github.com/Mori-Atsushi/home-hackathon-server/pb"
@@ -21,17 +22,33 @@ func (s *AppService) Event(srv pb.AppService_EventServer) error {
 	user := model.NewUser()
 	s.room.AddChannel(user)
 	log.Printf("new: %v", user)
-	for {
-		resp, err := srv.Recv()
-		if err != nil {
-			defer s.room.RemoveChannel(user)
-			log.Printf("close: %v", user)
-			break
+	wg := &sync.WaitGroup{}
+	wg.Add(2)
+	go func() {
+		for {
+			req, err := srv.Recv()
+			if err != nil {
+				log.Printf("close: %v", user)
+				break
+			}
+			event := model.NewEvent(req.GetEvent().GetMessage())
+			s.room.SendEvent(user, event)
+			log.Printf("recieve: %v, %v", user, req)
 		}
-		event := model.NewEvent(resp.GetEvent().GetMessage())
-		s.room.SendEvent(user, event)
-		log.Printf("recieve: %v", resp)
-	}
+		wg.Done()
+	}()
+	go func() {
+		channel := s.room.ReceiveEvent(user)
+		for {
+			event := <-channel
+			resp := pb.EventResponse{Event: &pb.Event{Message: event.GetMessage()}}
+			log.Printf("send: %v, %v", user, resp)
+			srv.Send(&resp)
+		}
+		wg.Done()
+	}()
+	wg.Wait()
+	defer s.room.RemoveChannel(user)
 	return nil
 }
 

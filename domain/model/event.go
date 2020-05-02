@@ -9,3 +9,7 @@ func NewEvent(message string) Event {
 		message: message,
 	}
 }
+
+func (e Event) GetMessage() string {
+	return e.message
+}
