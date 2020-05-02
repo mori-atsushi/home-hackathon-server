@@ -1,6 +1,6 @@
 syntax = "proto3";
 package app;
-option go_package = ".;proto";
+option go_package = ".;pb";
 
 service AppService {
     rpc Ping (PingRequest) returns (PingResponse);
