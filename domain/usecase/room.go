@@ -2,7 +2,6 @@ package usecase
 
 import (
 	"log"
-	"sync"
 
 	"github.com/Mori-Atsushi/home-hackathon-server/domain/model"
 	"github.com/Mori-Atsushi/home-hackathon-server/pb"
@@ -14,17 +13,17 @@ func JoinRoom(room *model.Room, user model.User) {
 }
 
 func ObserveRoom(room *model.Room, user model.User, srv pb.AppService_EventServer) {
-	wg := &sync.WaitGroup{}
-	wg.Add(2)
+	done := make(chan int)
 	go func() {
 		sendEvent(room, user, srv)
-		wg.Done()
+		done <- 1
 	}()
 	go func() {
 		receiveEvent(room, user, srv)
-		wg.Done()
+		done <- 1
 	}()
-	wg.Wait()
+	// 片方が呼ばれたら終了
+	<-done
 }
 
 func LeaveRoom(room *model.Room, user model.User) {
@@ -48,7 +47,10 @@ func sendEvent(room *model.Room, user model.User, srv pb.AppService_EventServer)
 func receiveEvent(room *model.Room, user model.User, srv pb.AppService_EventServer) {
 	channel := room.ReceiveEvent(user)
 	for {
-		event := <-channel
+		event, ok := <-channel
+		if !ok {
+			break
+		}
 		resp := pb.EventResponse{Event: event.GetRaw()}
 		log.Printf("send: %v, %v", user, resp)
 		srv.Send(&resp)

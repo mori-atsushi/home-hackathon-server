@@ -25,6 +25,7 @@ func (r Room) AddChannel(user User) {
 
 func (r Room) RemoveChannel(user User) {
 	r.mutex.Lock()
+	close(r.channels[user.id].channel)
 	delete(r.channels, user.id)
 	r.mutex.Unlock()
 }
