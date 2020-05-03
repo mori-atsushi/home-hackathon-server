@@ -23,5 +23,6 @@ message EventResponse {
 }
 
 message Event {
-    string message = 1;
+    int32 soundId = 1;
+    bool isDown = 2;
 }
