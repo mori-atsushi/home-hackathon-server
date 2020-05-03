@@ -5,4 +5,5 @@ WORKDIR /go/src/work
 ADD . /go/src/work
 
 RUN go mod download
-CMD go run main.go
+RUN go build main.go
+CMD ./main
