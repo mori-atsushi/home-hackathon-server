@@ -7,26 +7,26 @@ service AppService {
 }
 
 message EventRequest {
-    Event event = 1;
+    Sound sound = 1;
 }
 
 message EventResponse {
-    Event event = 1;
-}
-
-message Event {
     oneof event_oneof {
-        Sound sound = 1;
-        Users users = 2;
+        SoundEvent soundEvent = 1;
+        UserEvent userEvent = 2;
     }
 }
 
 message Sound {
-    int32 soundId = 1;
+    int32 soundID = 1;
     bool isDown = 2;
-    string userId = 3;
 }
 
-message Users {
-    repeated string userId = 1;
+message SoundEvent {
+    Sound sound = 1;
+    string userID = 2;
+}
+
+message UserEvent {
+    repeated string userIDs = 1;
 }
