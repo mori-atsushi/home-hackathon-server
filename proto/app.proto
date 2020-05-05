@@ -3,15 +3,7 @@ package app;
 option go_package = ".;pb";
 
 service AppService {
-    rpc Ping (PingRequest) returns (PingResponse);
     rpc Event (stream EventRequest) returns (stream EventResponse);
-}
-
-message PingRequest {
-}
-
-message PingResponse {
-    string message = 1;
 }
 
 message EventRequest {
