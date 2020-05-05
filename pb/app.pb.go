@@ -29,103 +29,18 @@ const (
 // of the legacy proto package is being used.
 const _ = proto.ProtoPackageIsVersion4
 
-type PingRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-}
-
-func (x *PingRequest) Reset() {
-	*x = PingRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_app_proto_msgTypes[0]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *PingRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*PingRequest) ProtoMessage() {}
-
-func (x *PingRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_proto_msgTypes[0]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use PingRequest.ProtoReflect.Descriptor instead.
-func (*PingRequest) Descriptor() ([]byte, []int) {
-	return file_app_proto_rawDescGZIP(), []int{0}
-}
-
-type PingResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Message string `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
-}
-
-func (x *PingResponse) Reset() {
-	*x = PingResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_app_proto_msgTypes[1]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *PingResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*PingResponse) ProtoMessage() {}
-
-func (x *PingResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_app_proto_msgTypes[1]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use PingResponse.ProtoReflect.Descriptor instead.
-func (*PingResponse) Descriptor() ([]byte, []int) {
-	return file_app_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *PingResponse) GetMessage() string {
-	if x != nil {
-		return x.Message
-	}
-	return ""
-}
-
 type EventRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Event *Event `protobuf:"bytes,1,opt,name=event,proto3" json:"event,omitempty"`
+	Sound *Sound `protobuf:"bytes,1,opt,name=sound,proto3" json:"sound,omitempty"`
 }
 
 func (x *EventRequest) Reset() {
 	*x = EventRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_app_proto_msgTypes[2]
+		mi := &file_app_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -138,7 +53,7 @@ func (x *EventRequest) String() string {
 func (*EventRequest) ProtoMessage() {}
 
 func (x *EventRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_app_proto_msgTypes[2]
+	mi := &file_app_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -151,12 +66,12 @@ func (x *EventRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EventRequest.ProtoReflect.Descriptor instead.
 func (*EventRequest) Descriptor() ([]byte, []int) {
-	return file_app_proto_rawDescGZIP(), []int{2}
+	return file_app_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *EventRequest) GetEvent() *Event {
+func (x *EventRequest) GetSound() *Sound {
 	if x != nil {
-		return x.Event
+		return x.Sound
 	}
 	return nil
 }
@@ -166,13 +81,16 @@ type EventResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Event *Event `protobuf:"bytes,1,opt,name=event,proto3" json:"event,omitempty"`
+	// Types that are assignable to EventOneof:
+	//	*EventResponse_SoundEvent
+	//	*EventResponse_UserEvent
+	EventOneof isEventResponse_EventOneof `protobuf_oneof:"event_oneof"`
 }
 
 func (x *EventResponse) Reset() {
 	*x = EventResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_app_proto_msgTypes[3]
+		mi := &file_app_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -185,7 +103,7 @@ func (x *EventResponse) String() string {
 func (*EventResponse) ProtoMessage() {}
 
 func (x *EventResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_app_proto_msgTypes[3]
+	mi := &file_app_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -198,27 +116,166 @@ func (x *EventResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EventResponse.ProtoReflect.Descriptor instead.
 func (*EventResponse) Descriptor() ([]byte, []int) {
-	return file_app_proto_rawDescGZIP(), []int{3}
+	return file_app_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *EventResponse) GetEvent() *Event {
-	if x != nil {
-		return x.Event
+func (m *EventResponse) GetEventOneof() isEventResponse_EventOneof {
+	if m != nil {
+		return m.EventOneof
 	}
 	return nil
 }
 
-type Event struct {
+func (x *EventResponse) GetSoundEvent() *SoundEvent {
+	if x, ok := x.GetEventOneof().(*EventResponse_SoundEvent); ok {
+		return x.SoundEvent
+	}
+	return nil
+}
+
+func (x *EventResponse) GetUserEvent() *UserEvent {
+	if x, ok := x.GetEventOneof().(*EventResponse_UserEvent); ok {
+		return x.UserEvent
+	}
+	return nil
+}
+
+type isEventResponse_EventOneof interface {
+	isEventResponse_EventOneof()
+}
+
+type EventResponse_SoundEvent struct {
+	SoundEvent *SoundEvent `protobuf:"bytes,1,opt,name=soundEvent,proto3,oneof"`
+}
+
+type EventResponse_UserEvent struct {
+	UserEvent *UserEvent `protobuf:"bytes,2,opt,name=userEvent,proto3,oneof"`
+}
+
+func (*EventResponse_SoundEvent) isEventResponse_EventOneof() {}
+
+func (*EventResponse_UserEvent) isEventResponse_EventOneof() {}
+
+type Sound struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	SoundId int32 `protobuf:"varint,1,opt,name=soundId,proto3" json:"soundId,omitempty"`
+	SoundID int32 `protobuf:"varint,1,opt,name=soundID,proto3" json:"soundID,omitempty"`
 	IsDown  bool  `protobuf:"varint,2,opt,name=isDown,proto3" json:"isDown,omitempty"`
 }
 
-func (x *Event) Reset() {
-	*x = Event{}
+func (x *Sound) Reset() {
+	*x = Sound{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_app_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *Sound) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Sound) ProtoMessage() {}
+
+func (x *Sound) ProtoReflect() protoreflect.Message {
+	mi := &file_app_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Sound.ProtoReflect.Descriptor instead.
+func (*Sound) Descriptor() ([]byte, []int) {
+	return file_app_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *Sound) GetSoundID() int32 {
+	if x != nil {
+		return x.SoundID
+	}
+	return 0
+}
+
+func (x *Sound) GetIsDown() bool {
+	if x != nil {
+		return x.IsDown
+	}
+	return false
+}
+
+type SoundEvent struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Sound  *Sound `protobuf:"bytes,1,opt,name=sound,proto3" json:"sound,omitempty"`
+	UserID string `protobuf:"bytes,2,opt,name=userID,proto3" json:"userID,omitempty"`
+}
+
+func (x *SoundEvent) Reset() {
+	*x = SoundEvent{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_app_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SoundEvent) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SoundEvent) ProtoMessage() {}
+
+func (x *SoundEvent) ProtoReflect() protoreflect.Message {
+	mi := &file_app_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SoundEvent.ProtoReflect.Descriptor instead.
+func (*SoundEvent) Descriptor() ([]byte, []int) {
+	return file_app_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *SoundEvent) GetSound() *Sound {
+	if x != nil {
+		return x.Sound
+	}
+	return nil
+}
+
+func (x *SoundEvent) GetUserID() string {
+	if x != nil {
+		return x.UserID
+	}
+	return ""
+}
+
+type UserEvent struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserIDs []string `protobuf:"bytes,1,rep,name=userIDs,proto3" json:"userIDs,omitempty"`
+}
+
+func (x *UserEvent) Reset() {
+	*x = UserEvent{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_app_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -226,13 +283,13 @@ func (x *Event) Reset() {
 	}
 }
 
-func (x *Event) String() string {
+func (x *UserEvent) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Event) ProtoMessage() {}
+func (*UserEvent) ProtoMessage() {}
 
-func (x *Event) ProtoReflect() protoreflect.Message {
+func (x *UserEvent) ProtoReflect() protoreflect.Message {
 	mi := &file_app_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -244,51 +301,50 @@ func (x *Event) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Event.ProtoReflect.Descriptor instead.
-func (*Event) Descriptor() ([]byte, []int) {
+// Deprecated: Use UserEvent.ProtoReflect.Descriptor instead.
+func (*UserEvent) Descriptor() ([]byte, []int) {
 	return file_app_proto_rawDescGZIP(), []int{4}
 }
 
-func (x *Event) GetSoundId() int32 {
+func (x *UserEvent) GetUserIDs() []string {
 	if x != nil {
-		return x.SoundId
+		return x.UserIDs
 	}
-	return 0
-}
-
-func (x *Event) GetIsDown() bool {
-	if x != nil {
-		return x.IsDown
-	}
-	return false
+	return nil
 }
 
 var File_app_proto protoreflect.FileDescriptor
 
 var file_app_proto_rawDesc = []byte{
 	0x0a, 0x09, 0x61, 0x70, 0x70, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x03, 0x61, 0x70, 0x70,
-	0x22, 0x0d, 0x0a, 0x0b, 0x50, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22,
-	0x28, 0x0a, 0x0c, 0x50, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
-	0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x30, 0x0a, 0x0c, 0x45, 0x76, 0x65,
-	0x6e, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x20, 0x0a, 0x05, 0x65, 0x76, 0x65,
-	0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0a, 0x2e, 0x61, 0x70, 0x70, 0x2e, 0x45,
-	0x76, 0x65, 0x6e, 0x74, 0x52, 0x05, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x22, 0x31, 0x0a, 0x0d, 0x45,
-	0x76, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x20, 0x0a, 0x05,
-	0x65, 0x76, 0x65, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0a, 0x2e, 0x61, 0x70,
-	0x70, 0x2e, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x52, 0x05, 0x65, 0x76, 0x65, 0x6e, 0x74, 0x22, 0x39,
-	0x0a, 0x05, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x12, 0x18, 0x0a, 0x07, 0x73, 0x6f, 0x75, 0x6e, 0x64,
-	0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x07, 0x73, 0x6f, 0x75, 0x6e, 0x64, 0x49,
-	0x64, 0x12, 0x16, 0x0a, 0x06, 0x69, 0x73, 0x44, 0x6f, 0x77, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28,
-	0x08, 0x52, 0x06, 0x69, 0x73, 0x44, 0x6f, 0x77, 0x6e, 0x32, 0x6d, 0x0a, 0x0a, 0x41, 0x70, 0x70,
-	0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x2b, 0x0a, 0x04, 0x50, 0x69, 0x6e, 0x67, 0x12,
-	0x10, 0x2e, 0x61, 0x70, 0x70, 0x2e, 0x50, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x1a, 0x11, 0x2e, 0x61, 0x70, 0x70, 0x2e, 0x50, 0x69, 0x6e, 0x67, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x32, 0x0a, 0x05, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x12, 0x11, 0x2e,
-	0x61, 0x70, 0x70, 0x2e, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x1a, 0x12, 0x2e, 0x61, 0x70, 0x70, 0x2e, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x28, 0x01, 0x30, 0x01, 0x42, 0x06, 0x5a, 0x04, 0x2e, 0x3b, 0x70, 0x62,
-	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x22, 0x30, 0x0a, 0x0c, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x20, 0x0a, 0x05, 0x73, 0x6f, 0x75, 0x6e, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x0a, 0x2e, 0x61, 0x70, 0x70, 0x2e, 0x53, 0x6f, 0x75, 0x6e, 0x64, 0x52, 0x05, 0x73, 0x6f, 0x75,
+	0x6e, 0x64, 0x22, 0x81, 0x01, 0x0a, 0x0d, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x31, 0x0a, 0x0a, 0x73, 0x6f, 0x75, 0x6e, 0x64, 0x45, 0x76, 0x65,
+	0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x61, 0x70, 0x70, 0x2e, 0x53,
+	0x6f, 0x75, 0x6e, 0x64, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x48, 0x00, 0x52, 0x0a, 0x73, 0x6f, 0x75,
+	0x6e, 0x64, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x12, 0x2e, 0x0a, 0x09, 0x75, 0x73, 0x65, 0x72, 0x45,
+	0x76, 0x65, 0x6e, 0x74, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x61, 0x70, 0x70,
+	0x2e, 0x55, 0x73, 0x65, 0x72, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x48, 0x00, 0x52, 0x09, 0x75, 0x73,
+	0x65, 0x72, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x42, 0x0d, 0x0a, 0x0b, 0x65, 0x76, 0x65, 0x6e, 0x74,
+	0x5f, 0x6f, 0x6e, 0x65, 0x6f, 0x66, 0x22, 0x39, 0x0a, 0x05, 0x53, 0x6f, 0x75, 0x6e, 0x64, 0x12,
+	0x18, 0x0a, 0x07, 0x73, 0x6f, 0x75, 0x6e, 0x64, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05,
+	0x52, 0x07, 0x73, 0x6f, 0x75, 0x6e, 0x64, 0x49, 0x44, 0x12, 0x16, 0x0a, 0x06, 0x69, 0x73, 0x44,
+	0x6f, 0x77, 0x6e, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x06, 0x69, 0x73, 0x44, 0x6f, 0x77,
+	0x6e, 0x22, 0x46, 0x0a, 0x0a, 0x53, 0x6f, 0x75, 0x6e, 0x64, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x12,
+	0x20, 0x0a, 0x05, 0x73, 0x6f, 0x75, 0x6e, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0a,
+	0x2e, 0x61, 0x70, 0x70, 0x2e, 0x53, 0x6f, 0x75, 0x6e, 0x64, 0x52, 0x05, 0x73, 0x6f, 0x75, 0x6e,
+	0x64, 0x12, 0x16, 0x0a, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x22, 0x25, 0x0a, 0x09, 0x55, 0x73, 0x65,
+	0x72, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x12, 0x18, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44,
+	0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52, 0x07, 0x75, 0x73, 0x65, 0x72, 0x49, 0x44, 0x73,
+	0x32, 0x40, 0x0a, 0x0a, 0x41, 0x70, 0x70, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x32,
+	0x0a, 0x05, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x12, 0x11, 0x2e, 0x61, 0x70, 0x70, 0x2e, 0x45, 0x76,
+	0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x61, 0x70, 0x70,
+	0x2e, 0x45, 0x76, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x28, 0x01,
+	0x30, 0x01, 0x42, 0x06, 0x5a, 0x04, 0x2e, 0x3b, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
@@ -305,24 +361,24 @@ func file_app_proto_rawDescGZIP() []byte {
 
 var file_app_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_app_proto_goTypes = []interface{}{
-	(*PingRequest)(nil),   // 0: app.PingRequest
-	(*PingResponse)(nil),  // 1: app.PingResponse
-	(*EventRequest)(nil),  // 2: app.EventRequest
-	(*EventResponse)(nil), // 3: app.EventResponse
-	(*Event)(nil),         // 4: app.Event
+	(*EventRequest)(nil),  // 0: app.EventRequest
+	(*EventResponse)(nil), // 1: app.EventResponse
+	(*Sound)(nil),         // 2: app.Sound
+	(*SoundEvent)(nil),    // 3: app.SoundEvent
+	(*UserEvent)(nil),     // 4: app.UserEvent
 }
 var file_app_proto_depIdxs = []int32{
-	4, // 0: app.EventRequest.event:type_name -> app.Event
-	4, // 1: app.EventResponse.event:type_name -> app.Event
-	0, // 2: app.AppService.Ping:input_type -> app.PingRequest
-	2, // 3: app.AppService.Event:input_type -> app.EventRequest
-	1, // 4: app.AppService.Ping:output_type -> app.PingResponse
-	3, // 5: app.AppService.Event:output_type -> app.EventResponse
-	4, // [4:6] is the sub-list for method output_type
-	2, // [2:4] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	2, // 0: app.EventRequest.sound:type_name -> app.Sound
+	3, // 1: app.EventResponse.soundEvent:type_name -> app.SoundEvent
+	4, // 2: app.EventResponse.userEvent:type_name -> app.UserEvent
+	2, // 3: app.SoundEvent.sound:type_name -> app.Sound
+	0, // 4: app.AppService.Event:input_type -> app.EventRequest
+	1, // 5: app.AppService.Event:output_type -> app.EventResponse
+	5, // [5:6] is the sub-list for method output_type
+	4, // [4:5] is the sub-list for method input_type
+	4, // [4:4] is the sub-list for extension type_name
+	4, // [4:4] is the sub-list for extension extendee
+	0, // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_app_proto_init() }
@@ -332,30 +388,6 @@ func file_app_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_app_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PingRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_app_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*PingResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_app_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*EventRequest); i {
 			case 0:
 				return &v.state
@@ -367,7 +399,7 @@ func file_app_proto_init() {
 				return nil
 			}
 		}
-		file_app_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+		file_app_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*EventResponse); i {
 			case 0:
 				return &v.state
@@ -379,8 +411,8 @@ func file_app_proto_init() {
 				return nil
 			}
 		}
-		file_app_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Event); i {
+		file_app_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*Sound); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -391,6 +423,34 @@ func file_app_proto_init() {
 				return nil
 			}
 		}
+		file_app_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SoundEvent); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_app_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*UserEvent); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+	}
+	file_app_proto_msgTypes[1].OneofWrappers = []interface{}{
+		(*EventResponse_SoundEvent)(nil),
+		(*EventResponse_UserEvent)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -424,7 +484,6 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type AppServiceClient interface {
-	Ping(ctx context.Context, in *PingRequest, opts ...grpc.CallOption) (*PingResponse, error)
 	Event(ctx context.Context, opts ...grpc.CallOption) (AppService_EventClient, error)
 }
 
@@ -434,15 +493,6 @@ type appServiceClient struct {
 
 func NewAppServiceClient(cc grpc.ClientConnInterface) AppServiceClient {
 	return &appServiceClient{cc}
-}
-
-func (c *appServiceClient) Ping(ctx context.Context, in *PingRequest, opts ...grpc.CallOption) (*PingResponse, error) {
-	out := new(PingResponse)
-	err := c.cc.Invoke(ctx, "/app.AppService/Ping", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *appServiceClient) Event(ctx context.Context, opts ...grpc.CallOption) (AppService_EventClient, error) {
@@ -478,7 +528,6 @@ func (x *appServiceEventClient) Recv() (*EventResponse, error) {
 
 // AppServiceServer is the server API for AppService service.
 type AppServiceServer interface {
-	Ping(context.Context, *PingRequest) (*PingResponse, error)
 	Event(AppService_EventServer) error
 }
 
@@ -486,33 +535,12 @@ type AppServiceServer interface {
 type UnimplementedAppServiceServer struct {
 }
 
-func (*UnimplementedAppServiceServer) Ping(context.Context, *PingRequest) (*PingResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Ping not implemented")
-}
 func (*UnimplementedAppServiceServer) Event(AppService_EventServer) error {
 	return status.Errorf(codes.Unimplemented, "method Event not implemented")
 }
 
 func RegisterAppServiceServer(s *grpc.Server, srv AppServiceServer) {
 	s.RegisterService(&_AppService_serviceDesc, srv)
-}
-
-func _AppService_Ping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PingRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AppServiceServer).Ping(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/app.AppService/Ping",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AppServiceServer).Ping(ctx, req.(*PingRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _AppService_Event_Handler(srv interface{}, stream grpc.ServerStream) error {
@@ -544,12 +572,7 @@ func (x *appServiceEventServer) Recv() (*EventRequest, error) {
 var _AppService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "app.AppService",
 	HandlerType: (*AppServiceServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "Ping",
-			Handler:    _AppService_Ping_Handler,
-		},
-	},
+	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "Event",

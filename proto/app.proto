@@ -3,26 +3,30 @@ package app;
 option go_package = ".;pb";
 
 service AppService {
-    rpc Ping (PingRequest) returns (PingResponse);
     rpc Event (stream EventRequest) returns (stream EventResponse);
 }
 
-message PingRequest {
-}
-
-message PingResponse {
-    string message = 1;
-}
-
 message EventRequest {
-    Event event = 1;
+    Sound sound = 1;
 }
 
 message EventResponse {
-    Event event = 1;
+    oneof event_oneof {
+        SoundEvent soundEvent = 1;
+        UserEvent userEvent = 2;
+    }
 }
 
-message Event {
-    int32 soundId = 1;
+message Sound {
+    int32 soundID = 1;
     bool isDown = 2;
+}
+
+message SoundEvent {
+    Sound sound = 1;
+    string userID = 2;
+}
+
+message UserEvent {
+    repeated string userIDs = 1;
 }
