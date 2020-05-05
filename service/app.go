@@ -1,9 +1,6 @@
 package service
 
 import (
-	"context"
-	"log"
-
 	"github.com/Mori-Atsushi/home-hackathon-server/domain/model"
 	"github.com/Mori-Atsushi/home-hackathon-server/domain/usecase"
 	"github.com/Mori-Atsushi/home-hackathon-server/pb"
@@ -11,11 +8,6 @@ import (
 
 type AppService struct {
 	room model.Room
-}
-
-func (s *AppService) Ping(ctx context.Context, req *pb.PingRequest) (*pb.PingResponse, error) {
-	log.Printf("Received: %v", req)
-	return &pb.PingResponse{Message: "pong"}, nil
 }
 
 func (s *AppService) Event(srv pb.AppService_EventServer) error {
