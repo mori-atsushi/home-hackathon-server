@@ -23,6 +23,18 @@ message EventResponse {
 }
 
 message Event {
+    oneof event_oneof {
+        Sound sound = 1;
+        Users users = 2;
+    }
+}
+
+message Sound {
     int32 soundId = 1;
     bool isDown = 2;
+    string userId = 3;
+}
+
+message Users {
+    repeated string userId = 1;
 }
