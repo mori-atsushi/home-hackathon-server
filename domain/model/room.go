@@ -2,6 +2,8 @@ package model
 
 import (
 	"sync"
+
+	"github.com/Mori-Atsushi/home-hackathon-server/pb"
 )
 
 type Room struct {
@@ -30,7 +32,8 @@ func (r Room) RemoveChannel(user User) {
 	r.mutex.Unlock()
 }
 
-func (r Room) SendEvent(user User, event Event) {
+func (r Room) SendSoundEvent(user User, sound *pb.Sound) {
+	event := NewSoundEvent(user.id, sound)
 	r.mutex.Lock()
 	for _, channel := range r.channels {
 		channel.SendEvent(event)

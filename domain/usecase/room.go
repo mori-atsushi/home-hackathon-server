@@ -38,9 +38,7 @@ func sendEvent(room *model.Room, user model.User, srv pb.AppService_EventServer)
 			log.Printf("close: %v", user)
 			break
 		}
-		event := model.NewEvent(req.GetEvent())
-		room.SendEvent(user, event)
-		log.Printf("recieve: %v, %v", user, req)
+		room.SendSoundEvent(user, req.GetSound())
 	}
 }
 
@@ -51,9 +49,8 @@ func receiveEvent(room *model.Room, user model.User, srv pb.AppService_EventServ
 		if !ok {
 			break
 		}
-		resp := pb.EventResponse{Event: event.GetRaw()}
-		log.Printf("send: %v, %v", user, resp)
-		error := srv.Send(&resp)
+		resp := event.GetRaw()
+		error := srv.Send(resp)
 		if error != nil {
 			break
 		}
