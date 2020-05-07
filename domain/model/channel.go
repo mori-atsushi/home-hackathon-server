@@ -1,12 +1,14 @@
 package model
 
+const channelBufferSize = 10
+
 type Channel struct {
 	channel chan Event
 }
 
 func NewChannel() *Channel {
 	return &Channel{
-		channel: make(chan Event),
+		channel: make(chan Event, channelBufferSize),
 	}
 }
 
